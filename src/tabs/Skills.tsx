@@ -24,13 +24,19 @@ interface SkillEntry {
   category?: string;
   skills?: Skill[];
   name?: string;
+  logo?: string;
+  darkLogo?: string;
+  description?: string;
+  technologies?: string[];
+  toolsUsed?: string[];
+  methodologies?: string[];
+  details?: {
+    title: string;
+    items: string[];
+  }[];
 }
 
-interface SklRawData {
-  skills: SkillEntry[];
-}
-
-const SklRaw: SklRawData = require('../data/Skills.json');
+import SklRaw from '../data/Skills.json';
 
 const Skills: React.FC = () => {
   // Animation configurations
@@ -86,8 +92,9 @@ const Skills: React.FC = () => {
   const { categorized, uncategorized } = processSkillsData();
 
   // Reusable list section renderer with Tailwind
-  const renderListSection = (title: string, items: string[] | undefined) => (
-    items?.length > 0 && (
+  const renderListSection = (title: string, items: string[] | undefined) => {
+    if (!items || items.length === 0) return null;
+    return (
       <div className="mb-4">
         <strong className="mb-2 block font-medium text-gray-700 dark:text-gray-300">
           {title}:
@@ -100,8 +107,8 @@ const Skills: React.FC = () => {
           ))}
         </ul>
       </div>
-    )
-  );
+    );
+  };
 
   // Skill card component with Tailwind
   const SkillCard: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) => (
@@ -149,7 +156,7 @@ const Skills: React.FC = () => {
               {detail.title}
             </h4>
             <ul className="list-disc space-y-1 pl-6">
-              {detail.items?.map((item, itemIndex) => (
+              {detail.items.map((item, itemIndex) => (
                 <li
                   key={`item-${index}-${detailIndex}-${itemIndex}`}
                   className="text-gray-600 dark:text-gray-400"
