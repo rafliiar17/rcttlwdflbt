@@ -42,11 +42,22 @@ jobs:
           echo "VITE_WEATHER_APIKEY=${{ secrets.VITE_WEATHER_APIKEY }}" >> $GITHUB_ENV
           echo "VITE_IPAPI_DATA_KEY=${{ secrets.VITE_IPAPI_DATA_KEY }}" >> $GITHUB_ENV
           echo "VITE_IPAPI_DATA_KEY2=${{ secrets.VITE_IPAPI_DATA_KEY2 }}" >> $GITHUB_ENV
+
       - name: Build the app
         run: npm run build
 
+      - name: Debug build directory
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Listing files in the build directory:"
+          ls -la build
+
       - name: Ensure build folder exists
-        run: test -d build
+        run: |
+          if [ ! -d "build" ]; then
+            echo "Build directory does not exist."
+            exit 1
+          fi
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
