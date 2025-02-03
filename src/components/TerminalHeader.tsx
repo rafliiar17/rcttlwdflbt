@@ -70,17 +70,12 @@ export const ASCII: React.FC = () => {
         const freshWeather = await getWeatherData(lat, lon);
         const formattedUpdate = new Date().toLocaleString();
   
-        // Explicitly define each required property with defaults
-        const location = freshWeather.location || "Unknown";
-        const description = freshWeather.description || "No description";
-        const temperature = freshWeather.temperature ?? 0;
-        const iconUrl = freshWeather.iconUrl || "";
-  
+        // Safe property access with null handling
         const completeData: WeatherData = {
-          location,
-          description,
-          temperature,
-          iconUrl,
+          location: freshWeather?.location || "Unknown",
+          description: freshWeather?.description || "No description",
+          temperature: freshWeather?.temperature ?? 0,
+          iconUrl: freshWeather?.iconUrl || "",
           city: city || "Unknown",
           region: region || "Unknown",
           ip,
