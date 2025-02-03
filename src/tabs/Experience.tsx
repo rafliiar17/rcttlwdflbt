@@ -171,7 +171,7 @@ const CompanyCard = ({ company, isOpen, toggleDetails }: CompanyCardProps) => {
 
 export function Experience() {
   const [openDetails, setOpenDetails] = useState<Record<number, boolean>>({});
-  const experiences = ExperienceData.lang?.en?.companies || ExperienceData.companies;
+  const experiences = ExperienceData.lang.en?.companies || [];
 
   const toggleDetails = (index: number) => {
     setOpenDetails((prev) => ({
