@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
-// import LanguageSwitcher from "../components/LanguageSwitcher";
 
 interface ProfileData {
   profile?: {
@@ -23,7 +22,7 @@ interface JobData {
 }
 
 const Introduction = () => {
-  const [selectedLang, setSelectedLang] = useState();
+  const selectedLang = "en"; // Static language selection
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [jobsData, setJobsData] = useState<JobData | null>(null);
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
@@ -52,7 +51,8 @@ const Introduction = () => {
             setProfileData(profileData);
 
             if (langData) {
-              setJobsData(langData.lang[selectedLang]?.jobs);
+              // Add optional chaining and null checks
+              setJobsData(langData.lang?.[selectedLang]?.jobs || null);
               setSelectedJobId(details?.jobselected || null);
             }
 
@@ -73,15 +73,15 @@ const Introduction = () => {
     setPhoto(savedPhoto);
 
     fetchProfileData();
-  }, [selectedLang]);
+  }, []); // Removed selectedLang from dependencies
 
-  if (loading) return <div className="py-5 text-center">Loading...</div>;
+  if (loading) return <div className="text-center py-5">Loading...</div>;
   if (!profileData || !jobsData)
-    return <div className="py-5 text-center">Data unavailable</div>;
+    return <div className="text-center py-5">Data unavailable</div>;
 
   const selectedJob = selectedJobId ? jobsData[selectedJobId] : null;
   if (!selectedJob)
-    return <div className="py-5 text-center">Job not found</div>;
+    return <div className="text-center py-5">Job not found</div>;
 
   const highlightTerms = (content: string[], termsToHighlight: string[]) => {
     if (!Array.isArray(content)) return content;
@@ -101,7 +101,7 @@ const Introduction = () => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                className="font-bold text-blue-600"
+                className="text-blue-600 font-bold"
               >
                 {part}
               </motion.strong>
@@ -117,7 +117,7 @@ const Introduction = () => {
 
   return (
     <motion.div
-      className="container mx-auto mb-[-20px] pr-1"
+      className="container mx-auto pr-1 mb-[-20px]"
       initial="hidden"
       animate="visible"
       variants={{
@@ -128,36 +128,23 @@ const Introduction = () => {
         },
       }}
     >
-      {/* <LanguageSwitcher selectedLang={selectedLang} onChangeLang={setSelectedLang} /> */}
-
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={`${selectedJobId}-${selectedLang}`}
-          className="mb-1 text-center "
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-          }}
-        >
-          <motion.h1 className="mt-[-20px] py-2 pl-20 text-3xl font-semibold transition-transform hover:scale-105">
-            {/* {profileName}  [{selectedJob.highlight}] */}
-          </motion.h1>
-        </motion.div>
-      </AnimatePresence>
-
-      <div className="flex flex-col items-center space-y-6  md:flex-row md:items-start md:space-x-10 md:space-y-0">
+      <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-10">
         {/* Left Section: Photo + CV Button */}
         <motion.div
-          className="flex flex-col items-center "
+          className="flex flex-col items-center"
           variants={{
             hidden: { opacity: 0, x: -50 },
-            visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "anticipate" } },
+            visible: {
+              opacity: 1,
+              x: 0,
+              transition: { duration: 0.6, ease: "anticipate" },
+            },
           }}
         >
           <motion.img
             src={photo || ""}
             alt="Profile"
-            className="h-60 w-60 rounded-lg  border border-gray-300 object-cover shadow-lg transition-transform hover:scale-105"
+            className="w-60 h-60 object-cover shadow-lg border border-gray-300 rounded-lg transition-transform hover:scale-105"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
           />
@@ -171,7 +158,7 @@ const Introduction = () => {
             className="mt-4"
           >
             <a href={selectedJob.cv} target="_blank" rel="noopener noreferrer">
-              <button className="flex items-center space-x-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-md flex items-center space-x-2 hover:bg-blue-700">
                 <i className="fas fa-passport" />
                 <motion.span>View CV</motion.span>
               </button>
@@ -181,7 +168,7 @@ const Introduction = () => {
 
         {/* Right Section: Description with Highlight */}
         <motion.div
-          className="flex-1 text-left "
+          className="flex-1 text-left"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
