@@ -4,6 +4,7 @@ import LoadingPage from './first';
 import Container from './container';
 import { Button, Card } from 'flowbite-react';
 import "./index.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 // Main App Component
 const App  = () => {
   const [isFirstAccess, setIsFirstAccess] = useState<boolean>(true);

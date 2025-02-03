@@ -44,7 +44,7 @@ export const ASCII: React.FC = () => {
   const fetchWeather = useCallback(async () => {
     if (dataFetched.current) return;
     dataFetched.current = true;
-
+  
     try {
       const ip = await getUserIP();
       const locationData: LocationData | null = await getLocationData(ip);
@@ -53,33 +53,40 @@ export const ASCII: React.FC = () => {
         console.error("Failed to retrieve location data");
         return;
       }
-
+  
       const { latitude: lat, longitude: lon, city, region } = locationData;
       const visitorId = getOrCreateVisitorId();
-
+  
       const localWeather = JSON.parse(
         localStorage.getItem("weatherData") || "null"
       ) as WeatherData | null;
-
+  
       if (localWeather && isWeatherFresh(localWeather.lastupdate)) {
         setWeatherData(localWeather);
         return;
       }
-
+  
       if (lat && lon) {
         const freshWeather = await getWeatherData(lat, lon);
         const formattedUpdate = new Date().toLocaleString();
+  
+        // Explicitly define each required property with defaults
+        const location = freshWeather.location || "Unknown";
+        const description = freshWeather.description || "No description";
+        const temperature = freshWeather.temperature ?? 0;
+        const iconUrl = freshWeather.iconUrl || "";
+  
         const completeData: WeatherData = {
-          location: freshWeather.location || "Unknown",
-          description: freshWeather.description || "No description",
-          temperature: freshWeather.temperature || 0,
-          iconUrl: freshWeather.iconUrl || "",
+          location,
+          description,
+          temperature,
+          iconUrl,
           city: city || "Unknown",
           region: region || "Unknown",
           ip,
           lastupdate: formattedUpdate,
         };
-
+  
         setWeatherData(completeData);
         await saveDataToFirebase(completeData, visitorId);
         localStorage.setItem("weatherData", JSON.stringify(completeData));
