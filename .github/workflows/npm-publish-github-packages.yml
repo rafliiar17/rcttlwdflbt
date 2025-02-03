@@ -43,11 +43,13 @@ jobs:
           echo "VITE_IPAPI_DATA_KEY=${{ secrets.VITE_IPAPI_DATA_KEY }}" >> $GITHUB_ENV
           echo "VITE_IPAPI_DATA_KEY2=${{ secrets.VITE_IPAPI_DATA_KEY2 }}" >> $GITHUB_ENV
 
-      - name: Build the app
-        run: npm run build
-
-      - name: Ensure build folder exists
-        run: test -d build
+      - name: Build the app and Ensure build folder exists
+        run: |
+          sc && vite build
+          if [ ! -d "build" ]; then
+            echo "Build directory does not exist. Exiting."
+            exit 1
+          fi
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
