@@ -87,15 +87,15 @@ function Container() {
   }, [initializeAndFetchVisitor]);
 
   return (
-    <main className="flex min-h-screen items-center justify-center p-8 dark:bg-gray-900">
-      <div className="flex flex-col overflow-hidden rounded-lg bg-gray-900 shadow-2xl" style={{ width: '90vw', height: '90vh' }}>
-        <div className="flex items-center justify-between border-b border-gray-700 bg-gray-800 pl-5 pr-5">
+    <main className="flex min-h-screen items-center justify-center dark:bg-gray-900 p-8">
+      <div className="bg-gray-900 rounded-lg shadow-2xl overflow-hidden flex flex-col" style={{ width: '90vw', height: '90vh' }}>
+        <div className="flex items-center justify-between bg-gray-800 pl-5 pr-5 border-b border-gray-700">
           <div className="flex space-x-2">
-            <div className="h-3 w-3 rounded-full bg-red-600"></div>
-            <div className="h-3 w-3 rounded-full bg-yellow-300"></div>
-            <div className="h-3 w-3 rounded-full bg-green-500"></div>
+            <div className="w-3 h-3 rounded-full bg-red-600"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-300"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
           </div>
-          <div className="text-lg text-white" >  {visitorName}@{hostName}</div>
+          <div className="text-white text-lg" >  {visitorName}@{hostName}</div>
 
           <DarkThemeToggle className="text-white hover:bg-gray-700 focus:ring-gray-700" />
         </div>
@@ -106,24 +106,24 @@ function Container() {
             return (
               <button
                 key={tab.label}
-                className={`flex size-12 flex-1 items-center justify-center border-b-4 px-10 py-3 text-lg font-semibold ${activeTab === index ? "text-white border-green-400" : "border-transparent text-gray-400 hover:border-gray-500 hover:text-white"}`}
+                className={`size-12 px-10 py-3 text-lg font-semibold border-b-4 flex-1 flex items-center justify-center ${activeTab === index ? "text-white border-green-400" : "text-gray-400 border-transparent hover:text-white hover:border-gray-500"}`}
                 onClick={() => setActiveTab(index)}
               >
                 {tab.label}
-                {Icon && <Icon className="ml-2 h-4 w-4" />}
+                {Icon && <Icon className="ml-2 w-4 h-4" />}
               </button>
             );
           })}
         </div>
 
-        <div className="flex-1 overflow-y-auto p-10 font-mono text-lg text-green-400">
+        <div className="p-10 text-lg font-mono text-green-400 overflow-y-auto flex-1">
           <ASCII />
           <div className="mb-8 flex items-center">
-            <FaCaretRight className="mr-2 text-gray-500" />
+            <FaCaretRight className="text-gray-500 mr-2" />
             <span className="text-gray-400">{visitorName}@127.0.0.1:</span>
-            <span className="ml-1 text-blue-400">{currentDir}{tabsContent[activeTab].label.toLowerCase()}</span>
-            <span className="ml-1 text-gray-400">$</span>
-            <div className="ml-1 animate-pulse">▊</div>
+            <span className="text-blue-400 ml-1">{currentDir}{tabsContent[activeTab].label.toLowerCase()}</span>
+            <span className="text-gray-400 ml-1">$</span>
+            <div className="animate-pulse ml-1">▊</div>
           </div>
           {TabContent ? <TabContent /> : <div className="text-gray-400">Loading content...</div>}
         </div>
