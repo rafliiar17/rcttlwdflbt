@@ -105,7 +105,7 @@ export const ASCII: React.FC = () => {
   }, [showDateTime, fetchWeather]);
 
   return (
-    <div className="rounded-lg p-6 w-full max-w-6xl pl-2 mt-[-45px] pb-1">
+    <div className="mt-[-45px] w-full max-w-6xl rounded-lg p-6 pb-1 pl-2">
       <div className="text-center">
         <p className="text-md font-semibold text-white">
           Local Time: {dateTime}
@@ -117,7 +117,7 @@ export const ASCII: React.FC = () => {
                 <img
                   src={weatherData.iconUrl}
                   alt="Weather Icon"
-                  className="inline w-6 h-6 ml-1"
+                  className="ml-1 inline size-6"
                 />
               )}
               {" || Temp: "}

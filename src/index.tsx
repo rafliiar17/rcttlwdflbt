@@ -4,7 +4,7 @@ import LoadingPage from './first';
 import Container from './container';
 import { Button, Card } from 'flowbite-react';
 import "./index.css";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 // Main App Component
 const App  = () => {
   const [isFirstAccess, setIsFirstAccess] = useState<boolean>(true);
@@ -104,5 +104,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App />
+    <SpeedInsights />
   </React.StrictMode>
 );
