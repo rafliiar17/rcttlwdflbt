@@ -4,13 +4,30 @@ import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 // import LanguageSwitcher from "../components/LanguageSwitcher";
 
+interface ProfileData {
+  profile?: {
+    details?: {
+      name?: string;
+      jobselected?: string;
+      photos?: string;
+    };
+  };
+}
+
+interface JobData {
+  [key: string]: {
+    description: string;
+    highlight: string;
+    cv: string;
+  };
+}
+
 const Introduction = () => {
-  const [selectedLang, setSelectedLang] = useState("en");
-  const [profileData, setProfileData] = useState();
-  const [profileName, setProfileName] = useState();
-  const [jobsData, setJobsData] = useState();
-  const [selectedJobId, setSelectedJobId] = useState();
-  const [photo, setPhoto] = useState(null);
+  const [selectedLang, setSelectedLang] = useState();
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [jobsData, setJobsData] = useState<JobData | null>(null);
+  const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
+  const [photo, setPhoto] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,16 +45,15 @@ const Introduction = () => {
           );
 
           if (profileDoc) {
-            const profileData = profileDoc.data();
+            const profileData = profileDoc.data() as ProfileData;
             const details = profileData?.profile?.details;
             const langData = profileHighlightDoc?.data();
 
-            setProfileName(details?.name);
-            setProfileData(details);
+            setProfileData(profileData);
 
             if (langData) {
               setJobsData(langData.lang[selectedLang]?.jobs);
-              setSelectedJobId(details?.jobselected);
+              setSelectedJobId(details?.jobselected || null);
             }
 
             if (details?.photos) {
@@ -47,7 +63,7 @@ const Introduction = () => {
           }
         }
       } catch (error) {
-        // console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
@@ -55,20 +71,19 @@ const Introduction = () => {
 
     const savedPhoto = localStorage.getItem("profilePhoto") || null;
     setPhoto(savedPhoto);
-    
 
     fetchProfileData();
   }, [selectedLang]);
 
-  if (loading) return <div className="text-center py-5">Loading...</div>;
+  if (loading) return <div className="py-5 text-center">Loading...</div>;
   if (!profileData || !jobsData)
-    return <div className="text-center py-5">Data unavailable</div>;
+    return <div className="py-5 text-center">Data unavailable</div>;
 
-  const selectedJob = jobsData[selectedJobId];
+  const selectedJob = selectedJobId ? jobsData[selectedJobId] : null;
   if (!selectedJob)
-    return <div className="text-center py-5">Job not found</div>;
+    return <div className="py-5 text-center">Job not found</div>;
 
-  const highlightTerms = (content, termsToHighlight) => {
+  const highlightTerms = (content: string[], termsToHighlight: string[]) => {
     if (!Array.isArray(content)) return content;
 
     return content.map((line, i) => {
@@ -86,7 +101,7 @@ const Introduction = () => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                className="text-blue-600 font-bold"
+                className="font-bold text-blue-600"
               >
                 {part}
               </motion.strong>
@@ -101,8 +116,8 @@ const Introduction = () => {
   };
 
   return (
-<motion.div
-  className="container mx-auto pr-1 mb-[-20px]"
+    <motion.div
+      className="container mx-auto mb-[-20px] pr-1"
       initial="hidden"
       animate="visible"
       variants={{
@@ -118,19 +133,19 @@ const Introduction = () => {
       <AnimatePresence mode="wait">
         <motion.div
           key={`${selectedJobId}-${selectedLang}`}
-          className="text-center mb-1 "
+          className="mb-1 text-center "
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
           }}
         >
-          <motion.h1 className="text-3xl pl-20 py-2 mt-[-20px] font-semibold hover:scale-105 transition-transform">
+          <motion.h1 className="mt-[-20px] py-2 pl-20 text-3xl font-semibold transition-transform hover:scale-105">
             {/* {profileName}  [{selectedJob.highlight}] */}
           </motion.h1>
         </motion.div>
       </AnimatePresence>
 
-      <div className="flex flex-col md:flex-row items-center  md:items-start space-y-6 md:space-y-0 md:space-x-10">
+      <div className="flex flex-col items-center space-y-6  md:flex-row md:items-start md:space-x-10 md:space-y-0">
         {/* Left Section: Photo + CV Button */}
         <motion.div
           className="flex flex-col items-center "
@@ -142,7 +157,7 @@ const Introduction = () => {
           <motion.img
             src={photo || ""}
             alt="Profile"
-            className="w-60 h-60 object-cover  shadow-lg border border-gray-300 rounded-lg transition-transform hover:scale-105"
+            className="h-60 w-60 rounded-lg  border border-gray-300 object-cover shadow-lg transition-transform hover:scale-105"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
           />
@@ -156,7 +171,7 @@ const Introduction = () => {
             className="mt-4"
           >
             <a href={selectedJob.cv} target="_blank" rel="noopener noreferrer">
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-md flex items-center space-x-2 hover:bg-blue-700">
+              <button className="flex items-center space-x-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
                 <i className="fas fa-passport" />
                 <motion.span>View CV</motion.span>
               </button>
