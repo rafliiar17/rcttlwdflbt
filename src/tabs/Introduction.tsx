@@ -53,8 +53,9 @@ const Introduction = () => {
       }
     };
 
-    const savedPhoto = localStorage.getItem("profilePhoto");
-    if (savedPhoto) setPhoto(savedPhoto);
+    const savedPhoto = localStorage.getItem("profilePhoto") || null;
+    setPhoto(savedPhoto);
+    
 
     fetchProfileData();
   }, [selectedLang]);
