@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { db } from "../firebase";
 import { setDoc, doc } from "firebase/firestore";
-import { getUserIP, getLocationData, getWeatherData } from './getlocip';
+import { getUserIP, getLocationData, getWeatherData } from "./getlocip";
 
 interface WeatherData {
   location: string;
@@ -14,21 +14,28 @@ interface WeatherData {
   ip?: string;
 }
 
+interface LocationData {
+  latitude: number;
+  longitude: number;
+  city?: string;
+  region?: string;
+}
+
 export const ASCII: React.FC = () => {
-  const [dateTime, setDateTime] = useState<string>('');
+  const [dateTime, setDateTime] = useState<string>("");
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const dataFetched = useRef<boolean>(false);
 
   const showDateTime = useCallback(() => {
     const now = new Date();
-    const formattedDateTime = now.toLocaleString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
+    const formattedDateTime = now.toLocaleString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
       hour12: false,
     });
     setDateTime(formattedDateTime);
@@ -40,7 +47,13 @@ export const ASCII: React.FC = () => {
 
     try {
       const ip = await getUserIP();
-      const locationData = await getLocationData(ip);
+      const locationData: LocationData | null = await getLocationData(ip);
+      
+      if (!locationData) {
+        console.error("Failed to retrieve location data");
+        return;
+      }
+
       const { latitude: lat, longitude: lon, city, region } = locationData;
       const visitorId = getOrCreateVisitorId();
 
@@ -65,7 +78,7 @@ export const ASCII: React.FC = () => {
         };
 
         setWeatherData(completeData);
-        await saveDataToFirebase(completeData, await visitorId);
+        await saveDataToFirebase(completeData, visitorId);
         localStorage.setItem("weatherData", JSON.stringify(completeData));
       }
     } catch (error) {
@@ -82,10 +95,9 @@ export const ASCII: React.FC = () => {
   }, [showDateTime, fetchWeather]);
 
   return (
-<div className="rounded-lg p-6 w-full max-w-6xl pl-2 mt-[-45px] pb-1">
-  <div className="text-center">
-    <p className="text-md font-semibold text-white">
-
+    <div className="rounded-lg p-6 w-full max-w-6xl pl-2 mt-[-45px] pb-1">
+      <div className="text-center">
+        <p className="text-md font-semibold text-white">
           Local Time: {dateTime}
           {weatherData && (
             <>
