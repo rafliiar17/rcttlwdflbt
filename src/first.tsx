@@ -196,7 +196,7 @@ const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
   const handleReturningVisitor = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
+  
     try {
       const jakartaTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
       const formattedLastAccessTime = new Date(jakartaTime).toLocaleString("en-US", {
@@ -209,19 +209,19 @@ const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
         second: "2-digit",
         hour12: false,
       });
-
+  
       const currentVisitorId = localStorage.getItem("visitorId");
       if (!currentVisitorId || !visitorName) return;
-
+  
       const q = query(collection(db, "visitors"), where("id", "==", parseInt(currentVisitorId)));
       const snapshot = await getDocs(q);
-
+  
       if (!snapshot.empty) {
         const docId = snapshot.docs[0].id;
         await updateDoc(doc(db, "visitors", docId), { 
           LastAccess: formattedLastAccessTime 
         });
-
+  
         const ip = await getUserIP();
         let locationData: LocationData = {};
         try {
@@ -236,7 +236,7 @@ const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
             longitude: 0
           };
         }
-
+  
         const telegramMessage = `👤 Visitor Returned\n` +
           `🧑‍💻 Name: ${visitorName}\n` +
           `🌐 IP: ${ip}\n` +
@@ -244,20 +244,16 @@ const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
           `📍 Coordinates: Latitude ${locationData.latitude ?? 0}, Longitude ${locationData.longitude ?? 0}\n` +
           `🔗 Domain: ${domain}\n` +
           `🕒 Last Access: ${formattedLastAccessTime}`;
-
+  
         await sendTelegramNotification(telegramMessage);
       }
+  
+      // Redirect after successful processing
+      onSubmit(visitorName); // Add this line
     } catch (error) {
       console.error("Error updating LastAccess:", error);
     } finally {
       setLoading(false);
-    }
-
-    if (!visitorName) {
-      setError('Invalid visitor session');
-      setLoading(false);
-      return;
-      
     }
   };
 

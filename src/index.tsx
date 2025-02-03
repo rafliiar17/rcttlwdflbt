@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import LoadingPage from './first';
+
 import Container from './container';
 import { Button, Card } from 'flowbite-react';
 import "./index.css";
-import { SpeedInsights } from "@vercel/speed-insights/react";
 import {  HiComputerDesktop } from "react-icons/hi2";
 import { FaExclamationTriangle } from "react-icons/fa";
-
+import LoadingPage from './first';
 
 // Main App Component
 const App  = () => {
@@ -108,6 +107,5 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App />
-    <SpeedInsights />
   </React.StrictMode>
 );
