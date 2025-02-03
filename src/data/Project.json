@@ -1,0 +1,25 @@
+{
+    "projects" : [
+        {
+            "project_img" : "./img/python-data-generator.png",
+            "project_name" : "Python LTB Generator",
+            "project_about" : "Data generator from Python project to generate Land and Building Tax System",
+            "project_tool" : "Python, MariaDB, MongoDB,",
+            "project_link" : "https://github.com/rafliiar17/pbb-data-generator-python"
+        },
+        {
+            "project_img" : "./img/mirror-ubuntu.png",
+            "project_name" : "Mirror Repo Ubuntu Installer",
+            "project_about": "This script updates the mirror list for an Ubuntu system,\nselects the best mirror based on connection times,\nand updates the sources.list file accordingly.",
+            "project_tool" : "Wget, Curl, Netselect, bc, Vscode, VMware",
+            "project_link" : "https://github.com/rafliiar17/mirror-repo-checker-ubuntu2204"
+        },
+        {
+            "project_img" : "./img/navicat.png",
+            "project_name" : "Navicat 17 Remove Trial",
+            "project_about": "Script powershell to bypass time trial of navicat application using batchfile",
+            "project_tool" : "Powershell, Vscode",
+            "project_link" : "https://github.com/rafliiar17/NAVICAT17-REMOVE-TRIAL"
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+  "skills": [
+    {
+      "name": "HelpDesk Support",
+      "logo": "./img/support.svg",
+      "tools": "Navicat, Whatsapp, Redmine",
+      "description": "Handling customer complaints, resolving technical issues, and collecting customer feedback."
+    },
+    {
+      "name": "Technical Support",
+      "logo": "./img/techsupp.svg",
+      "tools": "Remote Desktop, TeamViewer, Redmine",
+      "description": "Providing technical assistance and troubleshooting for system issues."
+    },
+    {
+      "name": "Data Entry",
+      "logo": "./img/dataentry.svg",
+      "tools": "Microsoft Excel, Google Sheets, Navicat",
+      "description": "Accurately inputting data into databases and maintaining records."
+    },
+    {
+      "name": "DBMS : MariaDB/Mysql/MongoDB",
+      "logo": "./img/db.svg",
+      "tools": "PhpMyAdmin, Navicat, CLI",
+      "description": "Managing and maintaining MySQL/MariaDB databases for various applications."
+    },
+    {
+      "name": "Web Server : Apache/Nginx/Caddy",
+      "logo": "./img/server.svg",
+      "tools": "Apache, Nginx, Caddy",
+      "description": "Configuring and optimizing web servers for high performance and security."
+    },
+    {
+      "name": "OS : Ubuntu/Centos/Arch/Debian/Redhat",
+      "logo": "./img/arch.svg",
+      "tools": "Termius, VMware",
+      "description": "Administering and configuring servers on Ubuntu and CentOS."
+    },
+    {
+      "name": "Prometheus/Grafana",
+      "logo": "./img/grafana.svg",
+      "tools": "Prometheus, Grafana, Node Exporter",
+      "description": "Monitoring system performance and visualizing data with Prometheus and Grafana."
+    },
+    {
+      "name": "VMWare",
+      "logo": "./img/vmware.svg",
+      "tools": "VMware Workstation",
+      "description": "Managing virtual machines and infrastructure using VMware tools."
+    },
+    {
+      "name": "Docker",
+      "logo": "./img/docker.svg",
+      "tools": "Docker, Docker Compose",
+      "description": "Containerizing applications and managing containers with Docker."
+    },
+    {
+      "name": "Portainer",
+      "logo": "./img/portainer.svg",
+      "tools": "Portainer, Docker",
+      "description": "Simplifying container management using Portainer."
+    },
+    {
+      "name": "ShellScripting",
+      "logo": "./img/bash.svg",
+      "tools": "Bash, nano, Vscode",
+      "description": "Writing and automating tasks using shell scripts."
+    },
+    {
+      "name": "Python",
+      "logo": "./img/python.svg",
+      "tools": "Python, Vscode",
+      "description": "Developing applications and scripts using Python."
+    }
+  ]
+}

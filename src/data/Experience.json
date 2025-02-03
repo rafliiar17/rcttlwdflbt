@@ -1,0 +1,157 @@
+{
+    "lang": {
+      "en": {
+        "companies": [
+          {
+            "status": "Worked",
+            "logo": "./img/v-tax.png",
+            "name": "PT. MUTIARA BINTANG ABADI",
+            "position_time": "[Technical Support/Helpdesk Support], since: [Feb 2022 - now]",
+            "description": [
+              {
+                "task": "* Handling customer complaints",
+                "details": "- Managing over 15+ customer complaints daily\n- Achieved a 90% increase in customer satisfaction."
+              },
+              {
+                "task": "* Resolving technical issues",
+                "details": "- Resolved 90% of technical issues within 8 hours\n- Reduced recurring complaints by 80%."
+              },
+              {
+                "task": "* Collecting customer feedback",
+                "details": "- Gathered customer feedback to improve applications\n- Successfully implemented 80% of feedback received."
+              },
+              {
+                "task": "* Installing Application - base (LAMPP stack)",
+                "details": "- Installed over 20 web-based applications\n- Enhanced security through SSL and reverse proxy."
+              },
+              {
+                "task": "* Configuring SPPT (Notice of Tax Due)",
+                "details": "- Configured SPPT printing on Printonix printers\n- Reduced printing time by 40%."
+              },
+              {
+                "task": "* Providing support through various channels",
+                "details": "- Provided support via WhatsApp groups and email."
+              },
+              {
+                "task": "* Migrating Application server to production",
+                "details": "- Migrated 10+ applications to production servers\n- Completed migrations within 48 hours."
+              },
+              {
+                "task": "* Creating complex SQL queries to assist front-end views",
+                "details": "- Developed and optimized SQL queries to support front-end\n- Ensured data accuracy and efficiency."
+              },
+              {
+                "task": "* Reporting, documenting, and testing",
+                "details": "- Documented an average of 49 issues per month\n- Achieved a 95% success rate in testing results."
+              },
+              {
+                "task": "* Helpdesk Support",
+                "details": "- Managed 160 issue tickets monthly via Redmine\n- Maintained high customer satisfaction."
+              }
+            ]
+          },
+          {
+            "status": "Internship",
+            "logo": "./img/ptun.png",
+            "name": "THE STATE ADMINISTRATIVE COURT",
+            "position_time": "File Officer Intern, Jun. 2019 - Sept. 2019",
+            "description": [
+              {
+                "task": "- File Officer",
+                "details": "Searching for needed files\n- Organizing files\n- Cleaning file spaces."
+              }
+            ]
+          },
+          {
+            "status": "Internship",
+            "logo": "./img/ptpos.png",
+            "name": "PT. POS INDONESIA REG V BANDUNG",
+            "position_time": "Intern, Jun. 2018 - Sept. 2018",
+            "description": [
+              {
+                "task": "- Helper warehouse staff",
+                "details": "Packing goods for delivery to other post offices."
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "companies": [
+          {
+            "status": "Bekerja",
+            "logo": "./img/v-tax.png",
+            "name": "PT. MUTIARA BINTANG ABADI",
+            "position_time": "[Teknisi Pendukung/Helpdesk Support], sejak: [Feb 2022 - sekarang]",
+            "description": [
+              {
+                "task": "* Menangani keluhan pelanggan",
+                "details": "- Menangani lebih dari 15+ keluhan pelanggan per hari\n- Peningkatan kepuasan pelanggan sebesar 90%."
+              },
+              {
+                "task": "* Menyelesaikan masalah teknis",
+                "details": "- Menyelesaikan 90% masalah teknis dalam waktu 8 jam\n- Penurunan keluhan berulang sebesar 80%."
+              },
+              {
+                "task": "* Mengumpulkan umpan balik pelanggan",
+                "details": "- Mengumpulkan umpan balik pelanggan\n- 80% telah diimplementasikan dengan sukses."
+              },
+              {
+                "task": "* Instalasi Aplikasi - berbasis LAMPP stack",
+                "details": "- Menginstal lebih dari 20 aplikasi web\n- Meningkatkan keamanan dengan SSL dan reverse proxy."
+              },
+              {
+                "task": "* Konfigurasi SPPT (Surat Pemberitahuan Pajak Terutang)",
+                "details": "- Mengonfigurasi pencetakan SPPT menggunakan Printonix\n- Mengurangi waktu pencetakan hingga 40%."
+              },
+              {
+                "task": "* Memberikan dukungan melalui berbagai saluran",
+                "details": "- Memberikan dukungan melalui grup WhatsApp dan email."
+              },
+              {
+                "task": "* Migrasi server aplikasi ke server produksi",
+                "details": "- Memigrasi 10+ aplikasi\n- Penyelesaian dalam waktu kurang dari 48 jam."
+              },
+              {
+                "task": "* Membuat query SQL kompleks untuk mendukung tampilan front-end",
+                "details": "- Mengembangkan query SQL untuk membantu front-end\n- Memastikan data akurat dan efisien."
+              },
+              {
+                "task": "* Pelaporan, dokumentasi, dan pengujian",
+                "details": "- Mendokumentasikan rata-rata 49 masalah setiap bulan\n- Tingkat keberhasilan pengujian 95%."
+              },
+              {
+                "task": "* Dukungan Helpdesk",
+                "details": "- Mengelola 160 tiket masalah per bulan dengan Redmine\n- Memastikan kepuasan pelanggan tetap tinggi."
+              }
+            ]
+          },
+          {
+            "status": "Magang",
+            "logo": "./img/ptun.png",
+            "name": "PENGADILAN TATA USAHA NEGARA",
+            "position_time": "Magang Petugas Arsip, Jun. 2019 - Sept. 2019",
+            "description": [
+              {
+                "task": "- Petugas Arsip",
+                "details": "Mencari arsip yang dibutuhkan\n- Mengatur arsip\n- Membersihkan ruang arsip."
+              }
+            ]
+          },
+          {
+            "status": "Magang",
+            "logo": "./img/ptpos.png",
+            "name": "PT. POS INDONESIA REG V BANDUNG",
+            "position_time": "Magang, Jun. 2018 - Sept. 2018",
+            "description": [
+              {
+                "task": "- Pembantu staf gudang",
+                "details": "Mengemas barang untuk dikirim ke kantor pos lainnya."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+  

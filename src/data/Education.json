@@ -1,0 +1,32 @@
+{
+    "lang": {
+        "en": {
+            "1": {
+                "logo": "./img/smapul.png",
+                "name": "Vocational High School of SUMATRA 40 Bandung",
+                "degree": "Software Engineer",
+                "time": "2017 - 2020"
+            },
+            "2": {
+                "logo": "",
+                "name": "",
+                "degree": "",
+                "time": ""
+            }
+        },
+        "id": {
+            "1": {
+                "logo": "./img/smapul.png",
+                "name": "SMK Sumatra 40 Bandung",
+                "degree": "Rekayasa Perangkat Lunak",
+                "time": "2017 - 2020"
+            },
+            "2": {
+                "logo": "",
+                "name": "",
+                "degree": "",
+                "time": ""
+            }
+        }
+    }
+}

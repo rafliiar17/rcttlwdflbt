@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    background-image: url('/public/img/background.jpg');
+    background-size: cover; /* Make the image cover the entire page */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent image repetition */
+    margin: 0;
+    padding: 0;
+    font-family: 'Fira Code', monospace;
+  }
+  
