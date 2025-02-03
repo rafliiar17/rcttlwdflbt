@@ -4,21 +4,50 @@ import { db, botToken, chatId } from './firebase';
 import { UAParser } from 'ua-parser-js';
 import { getUserIP } from './components/getlocip';
 
-const LoadingPage = ({ onSubmit }) => {
+interface LoadingPageProps {
+  onSubmit: (name: string) => void;
+}
+
+interface VisitorData {
+  id: number;
+  name: string;
+  os: string;
+  browser: string;
+  ip: string;
+  domain: string;
+  location: {
+    city: string;
+    region: string;
+    country: string;
+    latitude: number;
+    longitude: number;
+  };
+  FirstAccess: string;
+  LastAccess: string | null;
+}
+
+interface LocationData {
+  city?: string;
+  region?: string;
+  country_name?: string;
+  latitude?: number;
+  longitude?: number;
+}
+
+const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [visitorName, setVisitorName] = useState(null);
-  const [visitorId, setVisitorId] = useState(null);
-  const [lines, setLines] = useState([]);
+  const [visitorName, setVisitorName] = useState<string | null>(null);
+  const [lines, setLines] = useState<string[]>([]);
   const [showInput, setShowInput] = useState(false);
-  const inputRef = useRef(null);
-  const formRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const domain = window.location.hostname;
   const currentHour = new Date().getHours();
 
-  const getGreeting = (hour) => {
+  const getGreeting = (hour: number): string => {
     if (hour >= 5 && hour < 12) return 'Good Morning';
     if (hour >= 12 && hour < 17) return 'Good Afternoon';
     return 'Good Evening';
@@ -43,7 +72,6 @@ const LoadingPage = ({ onSubmit }) => {
       } else {
         clearInterval(timer);
         if (storedVisitorId) {
-          setVisitorId(storedVisitorId);
           setVisitorName(storedVisitorName);
           setLines([greeting, `Welcome back to ${domain}, ${storedVisitorName}!`]);
           setShowInput(true); 
@@ -62,7 +90,7 @@ const LoadingPage = ({ onSubmit }) => {
     }
   }, [showInput]);
 
-  const sendTelegramNotification = async (message) => {
+  const sendTelegramNotification = async (message: string) => {
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
     try {
       await fetch(url, {
@@ -75,7 +103,7 @@ const LoadingPage = ({ onSubmit }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) {
       setError('Please enter your name.');
@@ -86,11 +114,11 @@ const LoadingPage = ({ onSubmit }) => {
 
     try {
       const ip = await getUserIP();
-      let locationData = {};
+      let locationData: LocationData = {};
 
       try {
         const response = await fetch(`https://ipapi.co/${ip}/json/`);
-        locationData = await response.json();
+        locationData = (await response.json()) as LocationData;
       } catch (error) {
         locationData = {
           city: "Unknown City",
@@ -120,13 +148,11 @@ const LoadingPage = ({ onSubmit }) => {
       let currentVisitorId = localStorage.getItem("visitorId");
       if (!currentVisitorId) {
         const snapshot = await getDocs(collection(db, "visitors"));
-        currentVisitorId = snapshot.size + 1;
+        currentVisitorId = (snapshot.size + 1).toString();
         localStorage.setItem("visitorId", currentVisitorId);
       }
 
-      setVisitorId(currentVisitorId);
-
-      const userData = {
+      const userData: VisitorData = {
         id: parseInt(currentVisitorId),
         name,
         os,
@@ -134,11 +160,11 @@ const LoadingPage = ({ onSubmit }) => {
         ip,
         domain,
         location: {
-          city: locationData.city || "Unknown City",
-          region: locationData.region || "Unknown Region",
-          country: locationData.country_name || "Unknown Country",
-          latitude: locationData.latitude || 0,
-          longitude: locationData.longitude || 0,
+          city: locationData.city ?? "Unknown City",
+          region: locationData.region ?? "Unknown Region",
+          country: locationData.country_name ?? "Unknown Country",
+          latitude: locationData.latitude ?? 0,
+          longitude: locationData.longitude ?? 0,
         },
         FirstAccess: formattedTime,
         LastAccess: null,
@@ -161,13 +187,13 @@ const LoadingPage = ({ onSubmit }) => {
       setVisitorName(name);
       onSubmit(name);
     } catch (error) {
-      setError(error.message || "An error occurred. Please try again.");
+      setError((error as Error).message || "An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleReturningVisitor = async (e) => {
+  const handleReturningVisitor = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -185,6 +211,8 @@ const LoadingPage = ({ onSubmit }) => {
       });
 
       const currentVisitorId = localStorage.getItem("visitorId");
+      if (!currentVisitorId || !visitorName) return;
+
       const q = query(collection(db, "visitors"), where("id", "==", parseInt(currentVisitorId)));
       const snapshot = await getDocs(q);
 
@@ -195,10 +223,10 @@ const LoadingPage = ({ onSubmit }) => {
         });
 
         const ip = await getUserIP();
-        let locationData = {};
+        let locationData: LocationData = {};
         try {
           const response = await fetch(`https://ipapi.co/${ip}/json/`);
-          locationData = await response.json();
+          locationData = (await response.json()) as LocationData;
         } catch (error) {
           locationData = {
             city: "Unknown City",
@@ -212,8 +240,8 @@ const LoadingPage = ({ onSubmit }) => {
         const telegramMessage = `👤 Visitor Returned\n` +
           `🧑‍💻 Name: ${visitorName}\n` +
           `🌐 IP: ${ip}\n` +
-          `📍 Location: ${locationData.city}, ${locationData.region}, ${locationData.country_name}\n` +
-          `📍 Coordinates: Latitude ${locationData.latitude}, Longitude ${locationData.longitude}\n` +
+          `📍 Location: ${locationData.city ?? "Unknown City"}, ${locationData.region ?? "Unknown Region"}, ${locationData.country_name ?? "Unknown Country"}\n` +
+          `📍 Coordinates: Latitude ${locationData.latitude ?? 0}, Longitude ${locationData.longitude ?? 0}\n` +
           `🔗 Domain: ${domain}\n` +
           `🕒 Last Access: ${formattedLastAccessTime}`;
 
@@ -267,7 +295,7 @@ const LoadingPage = ({ onSubmit }) => {
             {showInput && (
           <form 
             ref={formRef}
-            onSubmit={visitorName ? handleReturningVisitor : handleNewVisitor}
+            onSubmit={visitorName ? handleReturningVisitor : handleSubmit}
             className="flex items-center gap-2 mt-3"
           >
               <span className="text-green-500"></span>
@@ -280,7 +308,6 @@ const LoadingPage = ({ onSubmit }) => {
                   onChange={e => setName(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
-                      // Explicitly handle Enter key to ensure submission
                       e.preventDefault();
                       if (visitorName) {
                         handleReturningVisitor(e);
