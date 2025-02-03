@@ -69,10 +69,13 @@ export const ASCII: React.FC = () => {
       if (lat && lon) {
         const freshWeather = await getWeatherData(lat, lon);
         const formattedUpdate = new Date().toLocaleString();
-        const completeData = {
-          ...freshWeather,
-          city,
-          region,
+        const completeData: WeatherData = {
+          location: freshWeather.location || "Unknown",
+          description: freshWeather.description || "No description",
+          temperature: freshWeather.temperature || 0,
+          iconUrl: freshWeather.iconUrl || "",
+          city: city || "Unknown",
+          region: region || "Unknown",
           ip,
           lastupdate: formattedUpdate,
         };
