@@ -69,7 +69,7 @@ function Container() {
         // console.error("Error initializing visitor ID:", error);
       }
     }
-    await fetchVisitorName(visitorId);
+    await fetchVisitorName(visitorId ?? "");
   }, [fetchVisitorName]);
 
   useEffect(() => {
