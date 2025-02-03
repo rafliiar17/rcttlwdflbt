@@ -4,7 +4,11 @@ import LoadingPage from './first';
 import Container from './container';
 import { Button, Card } from 'flowbite-react';
 import "./index.css";
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import {  HiComputerDesktop } from "react-icons/hi2";
+import { FaExclamationTriangle } from "react-icons/fa";
+
+
 // Main App Component
 const App  = () => {
   const [isFirstAccess, setIsFirstAccess] = useState<boolean>(true);
@@ -52,7 +56,7 @@ const App  = () => {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-200">
         <Card className="animate-fade-in-up bg-red-100 p-6">
-          <HiExclamation className="mx-auto mb-4 size-12 text-red-600" />
+          <FaExclamationTriangle className="mx-auto mb-4 size-12 text-red-600" />
           <h1 className="mb-2 text-center text-xl font-bold text-red-600">
             Tidak Ada Koneksi Internet
           </h1>
