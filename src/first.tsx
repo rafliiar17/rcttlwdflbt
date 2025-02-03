@@ -253,19 +253,24 @@ const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
       setLoading(false);
     }
 
-    onSubmit(visitorName);
+    if (!visitorName) {
+      setError('Invalid visitor session');
+      setLoading(false);
+      return;
+      
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-900 p-8 font-mono flex items-center justify-center">
-      <div className="max-w-7xl w-full text-green-400 transform scale-95 hover:scale-100 transition-transform duration-300">
+      <div className="max-w-7xl w-full text-green-400 scale-95 hover:scale-100 transition-transform duration-300">
         {/* Terminal Header */}
         <div className="flex items-center justify-between mb-0.5 bg-gray-800 px-4 py-2 rounded-t-lg border-b-2 border-gray-700">
           <div className="flex items-center gap-2">
             <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 cursor-pointer transition-colors" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 cursor-pointer transition-colors" />
-              <div className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 cursor-pointer transition-colors" />
+              <div className="size-3 rounded-full bg-red-500 hover:bg-red-400 cursor-pointer transition-colors" />
+              <div className="size-3 rounded-full bg-yellow-500 hover:bg-yellow-400 cursor-pointer transition-colors" />
+              <div className="size-3 rounded-full bg-green-500 hover:bg-green-400 cursor-pointer transition-colors" />
             </div>
             <span className="text-sm text-gray-400 font-semibold ml-2">zsh — Terminal</span>
           </div>
@@ -284,7 +289,7 @@ const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
           <div className="relative z-10">
             {lines.map((line, index) => (
               <div key={index} className="flex items-center gap-2 mb-2 group">
-                <span className="text-green-500 flex-shrink-0">➜</span>
+                <span className="text-green-500 shrink-0">➜</span>
                 <span className="text-gray-300 font-medium whitespace-pre-wrap break-words terminal-line">
                   {line}
                 </span>
@@ -316,7 +321,7 @@ const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
                       }
                     }
                   }}
-                  className="w-full bg-transparent text-gray-300 border-none focus:ring-0 p-0 pr-4 caret-green-500 placeholder-gray-600 font-medium"
+                  className="w-full bg-transparent text-gray-300 border-none focus:ring-0 p-0 pr-4 caret-green-500 placeholder:text-gray-600 font-medium"
                   placeholder={visitorName ? 'Press Enter to continue...' : 'Enter your name...'}
                   autoFocus
                   autoComplete="off"
@@ -338,9 +343,9 @@ const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
             {loading && (
               <div className="flex items-center gap-2 mt-3 text-gray-400">
                 <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" />
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce delay-100" />
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce delay-200" />
+                  <div className="size-2 bg-green-500 rounded-full animate-bounce" />
+                  <div className="size-2 bg-green-500 rounded-full animate-bounce delay-100" />
+                  <div className="size-2 bg-green-500 rounded-full animate-bounce delay-200" />
                 </div>
                 <span className="font-medium">Processing...</span>
               </div>
