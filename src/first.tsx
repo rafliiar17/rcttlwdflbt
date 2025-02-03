@@ -354,7 +354,7 @@ const LoadingPage = ({ onSubmit }: LoadingPageProps) => {
         </div>
       </div>
 
-      <style jsx global>{`
+      <style>{`
         @keyframes blink {
           50% { opacity: 0; }
         }
