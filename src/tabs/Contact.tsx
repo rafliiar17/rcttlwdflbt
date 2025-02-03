@@ -207,8 +207,9 @@ const Contact = () => {
                                     <div className="relative flex h-32 flex-col items-center justify-center p-6">
                                         <Icon className={`text-4xl ${item.color} transition-colors duration-300`} />
                                         <span className="mt-3 text-sm font-medium tracking-wider text-gray-300/90">
-                                            {Icon.displayName?.replace("Fa", "")}
-                                        </span>
+                                        {Icon.name?.replace("Fa", "")}
+                                    </span>
+
                                     </div>
                                     
                                     {item.link && (
