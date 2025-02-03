@@ -14,9 +14,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Pastikan semua commit diambil
+          fetch-depth: 0  # Mengambil semua commit untuk memastikan histori lengkap
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -43,18 +43,15 @@ jobs:
           echo "VITE_IPAPI_DATA_KEY=${{ secrets.VITE_IPAPI_DATA_KEY }}" >> $GITHUB_ENV
           echo "VITE_IPAPI_DATA_KEY2=${{ secrets.VITE_IPAPI_DATA_KEY2 }}" >> $GITHUB_ENV
 
-      - name: Build the app and Ensure build folder exists
-        run: |
-        mkdir build && 
-          sc && vite build
+      - name: Build the app
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: build
-          clean: true  # Cleans up the target branch
-          token: ${{ secrets.GITHUB_TOKEN }}  # Explicitly specify the token
+          folder: dist
+          clean: true  # Membersihkan branch target sebelum deploy
 
     env:
       ACTIONS_STEP_DEBUG: true
