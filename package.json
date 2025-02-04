@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-       "build": "tsc && vite build --outDir dist",
+       "build": "tsc && vite build --outDir build",
         "preview": "vite preview",
         "format": "prettier . --write",
         "format:check": "prettier . --check",
