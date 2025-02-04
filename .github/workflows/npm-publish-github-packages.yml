@@ -43,14 +43,14 @@ jobs:
           echo "VITE_IPAPI_DATA_KEY=${{ secrets.VITE_IPAPI_DATA_KEY }}" >> $GITHUB_ENV
           echo "VITE_IPAPI_DATA_KEY2=${{ secrets.VITE_IPAPI_DATA_KEY2 }}" >> $GITHUB_ENV
 
-      - name: Build the app
+      - name: Build the ap
         run: npm run build --output build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist
+          folder: build
           clean: true  # Membersihkan branch target sebelum deploy
 
     env:
