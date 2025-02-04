@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
-      pages: write  # Add pages permission for deployment
-      id-token: write  # Needed for GitHub Pages interaction
+      contents: write  # Memberikan izin menulis ke repository
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Mengambil semua commit untuk memastikan histori lengkap
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Set environment variables
+      - name: Set Firebase environment variables
         run: |
           echo "VITE_FIREBASE_API_KEY=${{ secrets.VITE_FIREBASE_API_KEY }}" >> $GITHUB_ENV
           echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}" >> $GITHUB_ENV
@@ -43,18 +43,15 @@ jobs:
           echo "VITE_IPAPI_DATA_KEY=${{ secrets.VITE_IPAPI_DATA_KEY }}" >> $GITHUB_ENV
           echo "VITE_IPAPI_DATA_KEY2=${{ secrets.VITE_IPAPI_DATA_KEY2 }}" >> $GITHUB_ENV
 
-      - name: Build the app
-        run: npm run build  # Remove the --output flag here
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: 'build/'  # Should match your output directory
+      - name: Build the ap
+        run:  npm run build 
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v2
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: build
+          clean: true  # Membersihkan branch target sebelum deploy
 
     env:
       ACTIONS_STEP_DEBUG: true
