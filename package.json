@@ -1,12 +1,12 @@
 {
-    "homepage": "https://rafliiar17.github.io/rcttlwdflbt/",
+    "homepage": "http://rafliiarcxh.cloud/",
     "name": "flowbite-react-template-vite",
     "private": true,
     "version": "0.0.0",
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "tsc && vite build",
+        "build": "tsc && vite build --output --public",
         "preview": "vite preview",
         "format": "prettier . --write",
         "format:check": "prettier . --check",
