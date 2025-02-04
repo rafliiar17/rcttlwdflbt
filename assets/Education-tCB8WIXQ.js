@@ -1,4 +1,4 @@
-import{r as s,j as e}from"./index-C9VaHtYI.js";import{m as l}from"./proxy-CIp62GcE.js";const u={en:{1:{logo:"./img/smapul.png",name:"Vocational High School of SUMATRA 40 Bandung",degree:"Software Engineer",time:"2017 - 2020"},2:{logo:"",name:"",degree:"",time:""}},id:{1:{logo:"./img/smapul.png",name:"SMK Sumatra 40 Bandung",degree:"Rekayasa Perangkat Lunak",time:"2017 - 2020"},2:{logo:"",name:"",degree:"",time:""}}},k={lang:u};/**
+import{r as s,j as e}from"./index-BG88u1DH.js";import{m as l}from"./proxy-CwtEobr4.js";const u={en:{1:{logo:"./img/smapul.png",name:"Vocational High School of SUMATRA 40 Bandung",degree:"Software Engineer",time:"2017 - 2020"},2:{logo:"",name:"",degree:"",time:""}},id:{1:{logo:"./img/smapul.png",name:"SMK Sumatra 40 Bandung",degree:"Rekayasa Perangkat Lunak",time:"2017 - 2020"},2:{logo:"",name:"",degree:"",time:""}}},k={lang:u};/**
  * @license lucide-react v0.474.0 - ISC
  *
  * This source code is licensed under the ISC license.
