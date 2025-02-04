@@ -44,7 +44,7 @@ jobs:
           echo "VITE_IPAPI_DATA_KEY2=${{ secrets.VITE_IPAPI_DATA_KEY2 }}" >> $GITHUB_ENV
 
       - name: Build the app
-        run: npm run build
+        run: npm run build --output build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
