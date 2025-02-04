@@ -13,8 +13,8 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "typecheck": "tsc --noEmit",
-        "predeploy": "npm run build --output dist",
-        "deploy": "gh-pages -d dist"
+        "predeploy": "npm run build --output build",
+        "deploy": "gh-pages -d build"
     },
     "dependencies": {
         "@fortawesome/free-brands-svg-icons": "^6.7.2",

@@ -13,7 +13,9 @@ dist-ssr
 *.local
 .env
 build
-
+src/*.js
+src/tabs/*.js
+src/components/*.js
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
